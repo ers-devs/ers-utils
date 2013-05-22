@@ -53,6 +53,7 @@ function checkout_ers {
 
 function update_self {
 	wget https://raw.github.com/ers-devs/ers-utils/master/xo_setup/xo_setup.sh -O $0
+	chmod a+x $0
 }
 
 ensure_root
