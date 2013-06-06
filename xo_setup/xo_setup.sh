@@ -54,7 +54,7 @@ function checkout_ers {
 			exit -1
 		fi
 
-		(cd /root; git clone https://github.com/ers-devs/ers.git; git checkout develop)
+		(cd /root; git clone https://github.com/ers-devs/ers.git; cd ers; git checkout develop)
 	fi
 }
 
