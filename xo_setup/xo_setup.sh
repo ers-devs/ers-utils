@@ -13,12 +13,18 @@ function ensure_root {
 }
 
 function show_help {
-	echo "$0 update_self     : Update this script with latest from repo"
-	echo "$0 install_pip     : Install Pip (the Python package manager)"
-	echo "$0 get_site_pkgs   : Download site-packages for ERS"
-	echo "$0 get_py_libs     : Install Python libraries for ERS"
-	echo "$0 install_git     : Install Git"
-	echo "$0 checkout_ers    : Check out ERS repository in /root"
+	echo "To just install everything on a pristine XO, use:"
+	echo
+	echo "    $0 all"
+	echo
+	echo "Or, for more precise operations, use any of the following:"
+	echo
+	echo "    $0 update_self     : Update this script with latest from repo"
+	echo "    $0 install_pip     : Install Pip (the Python package manager)"
+	echo "    $0 get_site_pkgs   : Download site-packages for ERS"
+	echo "    $0 get_py_libs     : Install Python libraries for ERS"
+	echo "    $0 install_git     : Install Git"
+	echo "    $0 checkout_ers    : Check out ERS repository in /root"
 }
 
 function install_git {
@@ -86,6 +92,14 @@ function checkout_ers {
 	fi
 }
 
+function install_all {
+	install_pip
+	get_site_pkgs
+	get_py_libs
+	install_git
+	checkout_ers
+}
+
 function update_self {
 	curl https://raw.github.com/ers-devs/ers-utils/master/xo_setup/xo_setup.sh -o $0; chmod a+x $0; exit
 }
@@ -93,6 +107,7 @@ function update_self {
 ensure_root
 
 case "$1" in
+	all)                install_all;;
 	install_pip)        install_pip;;
 	get_site_pkgs)      get_site_pkgs;;
 	get_py_libs)        get_py_libs;;
