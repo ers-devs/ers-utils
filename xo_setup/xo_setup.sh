@@ -13,11 +13,11 @@ function ensure_root {
 }
 
 function show_help {
-	echo "$0 install_git     : Install Git"
-	echo "$0 install_pip     : Install Pip (the Python package manager)"
-	echo "$0 checkout_ers    : Check out ERS repository in /root"
-	echo "$0 get_py_libs     : Download site-packages for ERS"
 	echo "$0 update_self     : Update this script with latest from repo"
+	echo "$0 install_pip     : Install Pip (the Python package manager)"
+	echo "$0 get_site_pkgs   : Download site-packages for ERS"
+	echo "$0 install_git     : Install Git"
+	echo "$0 checkout_ers    : Check out ERS repository in /root"
 }
 
 function install_git {
@@ -60,7 +60,7 @@ function install_pip {
 	fi
 }
 
-function get_py_libs {
+function get_site_pkgs {
 	curl https://raw.github.com/ers-devs/ers-utils/master/xo_setup/site-packages.tar | tar -x -P --transform=s:^:/lib/python2.7/:
 
 	echo 'site-packages updated'
@@ -89,7 +89,7 @@ case "$1" in
 	install_git)        install_git;;
     install_pip)        install_pip;;
 	checkout_ers)       checkout_ers;;
-	get_py_libs)        get_py_libs;;
+	get_site_pkgs)      get_site_pkgs;;
 	update_self)        update_self;;
 	*)                  show_help;;
 esac
