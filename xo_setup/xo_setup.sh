@@ -40,7 +40,7 @@ function install_git {
 }
 
 function get_py_libs {
-	wget -O - https://raw.github.com/ers-devs/ers-utils/master/xo_setup/site-packages.tar | tar -x -P --transform=s:^:/lib/python2.7/:
+	curl https://raw.github.com/ers-devs/ers-utils/master/xo_setup/site-packages.tar | tar -x -P --transform=s:^:/lib/python2.7/:
 
 	echo 'site-packages updated'
 }
@@ -59,7 +59,7 @@ function checkout_ers {
 }
 
 function update_self {
-	wget https://raw.github.com/ers-devs/ers-utils/master/xo_setup/xo_setup.sh -O $0; chmod a+x $0; exit
+	curl https://raw.github.com/ers-devs/ers-utils/master/xo_setup/xo_setup.sh -o $0; chmod a+x $0; exit
 }
 
 ensure_root
