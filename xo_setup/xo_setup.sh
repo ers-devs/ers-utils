@@ -98,6 +98,7 @@ function install_service {
 	cat << 'EOF' > /lib/systemd/system/ers.service
 [Unit]
 Description=ERS Service
+Requires=couchdb.service
 After=couchdb.service
 
 [Service]
