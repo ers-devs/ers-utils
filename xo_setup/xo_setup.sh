@@ -56,6 +56,7 @@ function install_pip {
 		curl -O http://python-distribute.org/distribute_setup.py
 		python distribute_setup.py
 		rm distribute_setup.py
+		rm distribute*.tar.gz
 		easy_install pip
 
 		if [ -z "`which pip`" ]; then
