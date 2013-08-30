@@ -25,6 +25,7 @@ function show_help {
 	echo "    $0 get_py_libs     : Install Python libraries for ERS"
 	echo "    $0 install_git     : Install Git"
 	echo "    $0 checkout_ers    : Check out ERS repository in /root"
+	echo "    $0 install_service : Install ERS as systemd service"
 }
 
 function install_git {
@@ -93,12 +94,37 @@ function checkout_ers {
 	fi
 }
 
+function install_service {
+	cat << 'EOF' > /lib/systemd/system/ers.service
+[Unit]
+Description=ERS Service
+After=couchdb.service
+
+[Service]
+User=root
+Group=root
+Type=simple
+StandardOutput=journal
+StandardError=journal
+Restart=always
+StartLimitInterval=10
+StartLimitBurst=5
+ExecStart=/usr/bin/python -m ers.daemon --pidfile=none --logtype=syslog
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    systemctl enable ers
+}
+
 function install_all {
 	install_pip
 	get_site_pkgs
 	get_py_libs
 	install_git
 	checkout_ers
+	install_service
 }
 
 function update_self {
@@ -114,6 +140,7 @@ case "$1" in
 	get_py_libs)        get_py_libs;;
 	install_git)        install_git;;
 	checkout_ers)       checkout_ers;;
+    install_service)    install_service;;
 	update_self)        update_self;;
 	*)                  show_help;;
 esac
